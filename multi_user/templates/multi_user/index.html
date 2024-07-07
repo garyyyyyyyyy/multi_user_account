@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h2>User Profile</h2>
+    <p>Username: {{ user.username | title }}</p>
+    <p>Access Level: {{ access_level }}</p>
+    {% if user.account_owner is not None  %}
+        <p>Account Owner: {{ user.account_owner.username }}</p>
+    {% endif %}
+
+
+    {% if perms.multi_user.all_head_office %}
+        <h3>Create New User</h3>
+        <form action='create-user' method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Create User</button>
+        </form>
+        {% if message != '' %}
+            <p>{{ message }}</p>
+        {% endif %}
+    {% endif %}
+    
+
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>

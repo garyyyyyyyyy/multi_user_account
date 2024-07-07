@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login or Register</title>
+    <script>
+        function setFormAction(action) {
+            document.getElementById('login_or_register_form').action = action;
+        }
+    </script>
+</head>
+<body>
+    <h2>Login or Register</h2>
+    <form id="login_or_register_form" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" onclick="setFormAction('{% url 'login-or-register-page' %}')">Register</button>
+        <button type="submit" onclick="setFormAction('{% url 'login' %}')">Login</button>
+    </form>
+    <p>{{ error }}</p>
+</body>
+</html>
